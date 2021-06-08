@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
+import Axios from 'axios'
+
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_HOST
 
 export default function Home() {
   return (
