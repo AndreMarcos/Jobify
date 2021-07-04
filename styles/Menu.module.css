@@ -1,0 +1,15 @@
+.HeaderComponent{
+    background-color: rgb(253, 94, 0);
+}
+
+.HeaderJobify{
+    padding-bottom: 1%;
+    font-family: sans-serif;
+    padding: 1%;
+    font-size: 1.8vw;
+    color:white;
+}
+
+.menu-spacer {
+    flex: 1 1 auto;
+  }

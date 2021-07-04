@@ -1,10 +1,10 @@
 import React from 'react';
-import style from '../../styles/Componente.module.css';
+import style from '../../styles/Feed.module.css';
 import Axios from 'axios';
 import Head from 'next/head';
 import Router from 'next/router';
 
-class Componente extends React.Component {
+class Feed extends React.Component {
 
     constructor(props){
         super(props);
@@ -30,7 +30,7 @@ class Componente extends React.Component {
                     <title>Jobify</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <div className={style.Conteudo}>
+                <div className='row bg-dark'>
                     <h2>Este é um componente de exemplo</h2>
                     <h2>{this.state.nome} está logado</h2>
                     <h2><a onClick={this.alterarDados}>Alterar Dados</a></h2>
@@ -40,4 +40,4 @@ class Componente extends React.Component {
     }
 }
 
-export default Componente;
+export default Feed;

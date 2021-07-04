@@ -19,7 +19,7 @@ class Login extends React.Component {
         .then(res => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('nome', res.data.firstName);
-            Router.push('./componente');
+            Router.push('./menu');
         })
         .catch(err => {
             alert(err);
@@ -35,7 +35,7 @@ class Login extends React.Component {
         return(
             <div className={style.Login}>
                 <Head>
-                    <title>Login</title>
+                    <title>Jobify</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderLogin}>
