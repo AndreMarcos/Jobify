@@ -148,7 +148,7 @@ class AlterarDados extends React.Component {
         return(
             <div className={style.Cadastro}>
                 <Head>
-                    <title>Alterar dados</title>
+                    <title>Jobify</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderCadastro}>
