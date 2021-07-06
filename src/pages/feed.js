@@ -15,7 +15,8 @@ class Feed extends React.Component {
             nome: '',
             servicos: [],
             pagina_atual: 1,
-            total_paginas: ''
+            total_paginas: '',
+            descricao: ''
         }
     }
 
@@ -47,6 +48,12 @@ class Feed extends React.Component {
         })
     }
 
+    handleChange = e =>{
+        this.setState({
+            descricao: e.target.value
+        })
+    }
+
     renderServicos = () =>{
         return this.state.servicos.map((servico) => {
             return <div className='col-8 mt-2'>
@@ -70,9 +77,10 @@ class Feed extends React.Component {
         };
         const data = {
             title: e.titulo,
-            description: e.descricao,
+            description: this.state.descricao,
             category: e.categoria,
         }
+        console.log(data)
         Axios.post('./api/job/create_job', data, config)
         .then(res =>{
             alert("Solicitação enviada com sucesso!")
@@ -94,7 +102,7 @@ class Feed extends React.Component {
                     <title>Jobify</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <Menu></Menu>
+                <Menu/>
                 <div className="row mt-4 justify-content-center">
                     <div className='col-8'> 
                         <Card>
@@ -118,7 +126,7 @@ class Feed extends React.Component {
                                 </div>
                                 <div className='row mt-2'>
                                     <div className='col'>
-                                        <textarea name="descricao" placeholder="Descricao"/>
+                                        <textarea name="descricao" placeholder="Descricao" value={this.state.descricao} onChange={this.handleChange}/>
                                     </div>
                                 </div>
                                 <div className='row justify-content-end'>
