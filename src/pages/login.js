@@ -19,7 +19,7 @@ class Login extends React.Component {
         .then(res => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('nome', res.data.firstName);
-            Router.push('./menu');
+            Router.push('./feed');
         })
         .catch(err => {
             alert(err);

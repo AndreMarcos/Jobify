@@ -3,7 +3,7 @@ import style from '../../styles/Menu.module.css';
 import Axios from 'axios';
 import Head from 'next/head';
 import Router from 'next/router';
-import Feed from '../components/feed'
+import Feed from '../pages/feed'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from 'react-bootstrap/Navbar'
@@ -30,6 +30,11 @@ class Menu extends React.Component {
         Router.push('./alterar_dados')
     }
 
+    sair(){
+        localStorage.clear()
+        Router.push('./login')
+    }
+
     render(){
         return(
             <div className='container-fluid'>
@@ -39,7 +44,7 @@ class Menu extends React.Component {
                 </Head>
                 <div className='row'>
                     <Navbar expand="lg" className='p-2' className={style.HeaderComponent}>
-                        <Navbar.Brand href="#home" className='col-7'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
+                        <Navbar.Brand href="#home" className='col-6'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav.Link href="#home" className='col-1 text-white'>Feed</Nav.Link>
@@ -47,10 +52,8 @@ class Menu extends React.Component {
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                             <Button variant="dark">Search</Button>
                         </Navbar.Collapse>
+                        <Nav.Link onClick={this.sair} className='col-1 text-white'>Sair</Nav.Link>
                     </Navbar>
-                </div>
-                <div className='row mt-2'>
-                    <Feed></Feed>
                 </div>
             </div>
         );
