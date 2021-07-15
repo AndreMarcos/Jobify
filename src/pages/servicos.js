@@ -7,6 +7,7 @@ import Menu from '../components/menu'
 import Card from 'react-bootstrap/Card'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
+import Button from 'react-bootstrap/Button'
 import { Formik, Field, Form } from 'formik';
 
 
@@ -67,7 +68,11 @@ class Feed extends React.Component {
                                 <h5>{servico.title} - {servico.category}</h5>
                             </div>
                             <div className='col-3'>
-                                Ativo/Desativo
+                                {servico.status === 'open' ? (
+                                    <Button variant="success" onClick={this.alterarStatus(servico)}>Ativado</Button>
+                                ) : (
+                                    <Button variant="danger" onClick={this.alterarStatus(servico)}>Desativado</Button>
+                                )}
                             </div>
                         </div>
                         <p>{servico.description}</p>
@@ -98,6 +103,13 @@ class Feed extends React.Component {
         .catch(err =>{
             alert(err)
         })
+    }
+
+    alterarStatus(servico){
+        // Entra em todos botoes quando inicia a pagina (nao sei pq)
+        // tem que alterar no banco de dados
+        // E nao altera o if da pagina
+        servico.status === 'open' ? servico.status = 'closed' : servico.status = 'open'
     }
 
     alterarDados(){
