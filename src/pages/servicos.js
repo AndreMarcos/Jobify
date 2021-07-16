@@ -17,7 +17,6 @@ class Feed extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nome: '',
             servicos: [],
             pagina_atual: 1,
             total_paginas: '',
@@ -26,9 +25,6 @@ class Feed extends React.Component {
     }
 
     componentDidMount(){
-        this.setState({
-            nome: localStorage.getItem('nome')
-        })
         this.getServicos()
     }
 
@@ -67,14 +63,14 @@ class Feed extends React.Component {
         .then(res => {
             this.getServicos();
         })
-        .catch(e => {
-            alert(e)
+        .catch(err => {
+            alert(err)
         })
     }
 
     renderServicosAtivos = () =>{
         return this.state.servicos.map((servico) => {
-            return <div className='col-8 mt-2'>
+            return <div className='col-8 mt-2' key={servico._id}>
                 <Card>
                     <Card.Body>
                         <div className='row'>
@@ -82,7 +78,7 @@ class Feed extends React.Component {
                                 <h5>{servico.title} - {servico.category}</h5>
                             </div>
                             <div className='col-2'>
-                            <Switch onChange={() => this.handleChange(servico.id)} checked={servico.status === "open"} />
+                            <Switch onChange={() => this.handleChange(servico._id)} checked={servico.status === "open"} />
                             </div>
                         </div>
                         <p>{servico.description}</p>
@@ -90,36 +86,6 @@ class Feed extends React.Component {
                 </Card>
             </div>
         })
-    }
-
-    criarServico = e =>{
-        const token = localStorage.getItem('token');
-        const config = {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        };
-        const data = {
-            title: e.titulo,
-            description: this.state.descricao,
-            category: e.categoria,
-        }
-        console.log(data)
-        Axios.post('./api/job/create_job', data, config)
-        .then(res =>{
-            alert("Solicitação enviada com sucesso!")
-            location.reload()
-        })
-        .catch(err =>{
-            alert(err)
-        })
-    }
-
-    alterarStatus(servico){
-        // Entra em todos botoes quando inicia a pagina (nao sei pq)
-        // tem que alterar no banco de dados
-        // E nao altera o if da pagina
-        servico.status === 'open' ? servico.status = 'closed' : servico.status = 'open'
     }
 
     alterarDados(){

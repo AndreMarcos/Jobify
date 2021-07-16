@@ -15,7 +15,6 @@ class Feed extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nome: '',
             servicos: [],
             servico: {
                 user:{
@@ -32,9 +31,6 @@ class Feed extends React.Component {
     }
 
     componentDidMount(){
-        this.setState({
-            nome: localStorage.getItem('nome')
-        })
         this.getServicos()
     }
 
@@ -68,7 +64,7 @@ class Feed extends React.Component {
 
     renderServicos = () =>{
         return this.state.servicos.map((servico) => {
-            return <div className='col-8 mt-2' key={servico.id}>
+            return <div className='col-8 mt-2' key={servico._id}>
                 <Card onClick={() => this.mostrarServico(servico)}>
                     <Card.Body>
                         <h4>{servico.user.name.firstName} {servico.user.name.lastName}</h4>
