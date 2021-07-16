@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Button from 'react-bootstrap/Button'
+import Switch from "react-switch";
 import { Formik, Field, Form } from 'formik';
 
 
@@ -39,7 +40,7 @@ class Feed extends React.Component {
             }
         };
         let pagina_atual = this.state.pagina_atual
-        Axios.get('./api/job/get_jobs?page='+pagina_atual+'&limit=5&user=false', config)
+        Axios.get('./api/job/get_jobs?page='+pagina_atual+'&limit=5&user=true', config)
         .then(res =>{
             this.setState({
                 servicos: res.data.jobs,
@@ -52,9 +53,22 @@ class Feed extends React.Component {
         })
     }
 
-    handleChange = e =>{
-        this.setState({
-            descricao: e.target.value
+    handleChange(id) {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        };
+        const data = {
+            jobId: id
+        }
+        Axios.put('./api/job/switch_job_status', data, config)
+        .then(res => {
+            this.getServicos();
+        })
+        .catch(e => {
+            alert(e)
         })
     }
 
@@ -64,15 +78,11 @@ class Feed extends React.Component {
                 <Card>
                     <Card.Body>
                         <div className='row'>
-                            <div className='col-9'>
+                            <div className='col-10'>
                                 <h5>{servico.title} - {servico.category}</h5>
                             </div>
-                            <div className='col-3'>
-                                {servico.status === 'open' ? (
-                                    <Button variant="success" onClick={this.alterarStatus(servico)}>Ativado</Button>
-                                ) : (
-                                    <Button variant="danger" onClick={this.alterarStatus(servico)}>Desativado</Button>
-                                )}
+                            <div className='col-2'>
+                            <Switch onChange={() => this.handleChange(servico.id)} checked={servico.status === "open"} />
                             </div>
                         </div>
                         <p>{servico.description}</p>
