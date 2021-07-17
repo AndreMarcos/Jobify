@@ -1,3 +1,99 @@
+.feed{
+    overflow-x: hidden;
+}
+
 .feed input, .feed textarea {
     width: 100%;
+}
+
+.Esconde{
+    visibility: hidden;
+}
+
+.BotaoSeta{
+    margin-left: 2%;
+    margin-right: 2%;
+    cursor: pointer;
+    background-color: rgb(253, 94, 0);
+    border: 0.5px solid black;
+    border-radius: 0.3rem;
+    color:white;
+}
+
+.BotaoSeta:hover{
+    color: lightgray;
+}
+
+.botaotabela{
+    display: inline-flex;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-left: 25%;
+    width:50%;
+    margin-bottom: 5%;
+}
+
+.botaotabela h5{
+    text-align: center;
+    color: rgb(1, 37, 73);
+    font-size: 0.9vw;
+    margin-top: 0;
+}
+
+.botaotabela a{
+    font-size: 1vw;
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+    color:black;
+}
+
+.ModalServico{
+    width: 30vw;
+    height: 40vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    background-color: white;
+    text-align: center;
+    color:rgb(1, 37, 73);
+    padding: 5%;
+}
+
+.ModalServico h3{
+    text-transform: capitalize;
+    margin-bottom: 8%;
+    margin-top: 0;
+    font-size: 1.2vw;
+}
+
+.ModalSolicitacao p{
+    font-size: 0.9vw;
+}
+
+.ModalSolicitacao button{
+    border: none;
+    background-color:rgb(1, 37, 73);
+    color: white;
+    padding: 2%;
+    font-size: 1vw;
+    border-radius: 0.3rem;
+    width: 20%;
+    margin-right: 2%;
+    margin-left: 2%;
+    cursor: pointer;
+}
+
+.ModalSolicitacao button:hover{
+    background-color: rgba(1, 37, 73, 0.9) ;
 }

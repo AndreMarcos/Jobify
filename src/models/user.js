@@ -47,12 +47,9 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
 
-    offeredJobs: [{
-        type: String
-    }],
-
     hiredJobs: [{
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Job'
     }]
 
 })
