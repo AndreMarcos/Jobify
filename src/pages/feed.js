@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card'
 import { Formik, Field, Form } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import Popup from 'reactjs-popup';
 
 class Feed extends React.Component {
@@ -18,7 +19,8 @@ class Feed extends React.Component {
             servicos: [],
             servico: {
                 user:{
-                    name:{}
+                    name:{},
+                    address:{}
                 }
             },
             pagina_atual: 1,
@@ -66,7 +68,7 @@ class Feed extends React.Component {
         return this.state.servicos.map((servico) => {
             return <div className='col-8 mt-2' key={servico._id}>
                 <Card onClick={() => this.mostrarServico(servico)}>
-                    <Card.Body>
+                    <Card.Body className={style.pointer}>
                         <h4>{servico.user.name.firstName} {servico.user.name.lastName}</h4>
                         <h5>{servico.title} - {servico.category}</h5>
                         <p>{servico.description}</p>
@@ -77,6 +79,7 @@ class Feed extends React.Component {
     }
 
     mostrarServico = (servico) =>{
+        console.log(servico)
         this.setState({
             servico: servico,
             open: true
@@ -158,8 +161,17 @@ class Feed extends React.Component {
                     <div className={style.ModalServico}>
                         <a className={style.close} onClick={this.closeModal}>&times;</a>
                         <h3>{this.state.servico.title}</h3>
+                        <h4>Descrição do serviço:</h4>
                         <p>{this.state.servico.description}</p>
-                        <p>Criado por {this.state.servico.user.name.firstName} {this.state.servico.user.name.lastName}</p>
+                        <h4 className='mt-4'>Informações do Autor:</h4>
+                        <p>Nome: {this.state.servico.user.name.firstName} {this.state.servico.user.name.lastName} <br></br>
+                        Cidade: {this.state.servico.user.address.city}<br></br>
+                        Contato: <a href={"http://api.whatsapp.com/send?1=pt_BR&phone=+55" + this.state.servico.user.phone} target="_blank"><FontAwesomeIcon icon={faWhatsapp} size='1x'/></a></p>
+                        <div className="row justify-content-end">
+                            <div className='col-2'>
+                            <button className={style.Botao} >Contratar</button>
+                            </div>
+                        </div>
                     </div> 
                 </Popup>
                 <div className="row mt-4 justify-content-center">
@@ -185,12 +197,12 @@ class Feed extends React.Component {
                                 </div>
                                 <div className='row mt-2'>
                                     <div className='col'>
-                                        <textarea name="descricao" placeholder="Descricao" value={this.state.descricao} onChange={this.handleChange}/>
+                                        <textarea name="descricao" placeholder="Descricao e Valor" value={this.state.descricao} onChange={this.handleChange}/>
                                     </div>
                                 </div>
                                 <div className='row justify-content-end'>
                                     <div className='col-2'>
-                                        <Field type="submit" placeholder="Enviar" name="criarservico"/>
+                                        <Field className={style.Botao} type="submit" placeholder="Enviar" name="criarservico"/>
                                     </div>
                                 </div>
                                 </Form>
