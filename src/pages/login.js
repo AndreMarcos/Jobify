@@ -31,6 +31,10 @@ class Login extends React.Component {
         Router.push('./cadastro')
     }
 
+    esqueceuasenha(){
+        alert("Que pena")
+    }
+
     render(){
         return(
             <div className={style.Login}>
@@ -53,7 +57,7 @@ class Login extends React.Component {
                         <br />
                         <Field type="password" id="senhalogin" placeholder="Senha" name="senhalogin" minLength="8" size="20" required />
                         <br />
-                        <button className={style.BotaoTexto} >Esqueceu a sua senha?</button>
+                        <button type="button" className={style.BotaoTexto} onClick={this.esqueceuasenha}>Esqueceu a sua senha?</button>
                         <br />
                         <p>Ainda não possui cadastro? <button className={style.BotaoTexto} onClick={this.cadastro}>Cadastrar</button></p>
                         <Field type="submit" className={style.BotaoLogin} value="Entrar" name="botaologin" />

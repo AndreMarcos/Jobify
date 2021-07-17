@@ -26,11 +26,15 @@ class Feed extends React.Component {
             esconde_previous: false,
             esconde_next: false,
             descricao: '',
-            open: false
+            open: false,
+            token:''
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        await this.setState({
+            token: localStorage.getItem('token')
+        })
         this.getServicos()
     }
 
@@ -146,69 +150,82 @@ class Feed extends React.Component {
         Router.push('./alterar_dados')
     }
 
-    render(){
-        return(
-            <div className={style.feed}>
-                <Head>
-                    <title>Jobify</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                <Menu/>
-                <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
-                    <div className={style.ModalServico}>
-                        <a className={style.close} onClick={this.closeModal}>&times;</a>
-                        <h3>{this.state.servico.title}</h3>
-                        <p>{this.state.servico.description}</p>
-                        <p>Criado por {this.state.servico.user.name.firstName} {this.state.servico.user.name.lastName}</p>
-                    </div> 
-                </Popup>
-                <div className="row mt-4 justify-content-center">
-                    <div className='col-8'> 
-                        <Card>
-                            <Card.Body>
-                                <h5 className='d-flex justify-content-center'>Cadastrar Serviço</h5>
+    login(){
+        Router.push('./login')
+    }
 
-                                <Formik
-                                initialValues={{
-                                    titulo:'',
-                                    descricao:''
-                                }}
-                                onSubmit={this.criarServico}>
-                                <Form >
-                                <div className='row mt-4'>
-                                    <div className='col-6'>
-                                        <Field type="text" name="titulo" placeholder="Nome"/>
+    render(){
+        if(this.state.token){
+            return(
+                <div className={style.feed}>
+                    <Head>
+                        <title>Jobify</title>
+                        <link rel="icon" href="/favicon.ico" />
+                    </Head>
+                    <Menu/>
+                    <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+                        <div className={style.ModalServico}>
+                            <a className={style.close} onClick={this.closeModal}>&times;</a>
+                            <h3>{this.state.servico.title}</h3>
+                            <p>{this.state.servico.description}</p>
+                            <p>Criado por {this.state.servico.user.name.firstName} {this.state.servico.user.name.lastName}</p>
+                        </div> 
+                    </Popup>
+                    <div className="row mt-4 justify-content-center">
+                        <div className='col-8'> 
+                            <Card>
+                                <Card.Body>
+                                    <h5 className='d-flex justify-content-center'>Cadastrar Serviço</h5>
+
+                                    <Formik
+                                    initialValues={{
+                                        titulo:'',
+                                        descricao:''
+                                    }}
+                                    onSubmit={this.criarServico}>
+                                    <Form >
+                                    <div className='row mt-4'>
+                                        <div className='col-6'>
+                                            <Field type="text" name="titulo" placeholder="Nome"/>
+                                        </div>
+                                        <div className='col-6'>
+                                            <Field type="text" name="categoria" placeholder="Categoria"/>
+                                        </div>
                                     </div>
-                                    <div className='col-6'>
-                                        <Field type="text" name="categoria" placeholder="Categoria"/>
+                                    <div className='row mt-2'>
+                                        <div className='col'>
+                                            <textarea name="descricao" placeholder="Descricao" value={this.state.descricao} onChange={this.handleChange}/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='row mt-2'>
-                                    <div className='col'>
-                                        <textarea name="descricao" placeholder="Descricao" value={this.state.descricao} onChange={this.handleChange}/>
+                                    <div className='row justify-content-end'>
+                                        <div className='col-2'>
+                                            <Field type="submit" placeholder="Enviar" name="criarservico"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='row justify-content-end'>
-                                    <div className='col-2'>
-                                        <Field type="submit" placeholder="Enviar" name="criarservico"/>
-                                    </div>
-                                </div>
-                                </Form>
-                                </Formik>
-                            </Card.Body>
-                        </Card>
+                                    </Form>
+                                    </Formik>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    </div>
+                    <div className="row mt-4 justify-content-center">
+                        {this.renderServicos()}
+                        <div className={style.botaotabela}>
+                            <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
+                            <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
+                            <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
+                        </div>
                     </div>
                 </div>
-                <div className="row mt-4 justify-content-center">
-                    {this.renderServicos()}
-                    <div className={style.botaotabela}>
-                        <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
-                        <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
-                        <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
-                    </div>
+            )
+        }else{
+            return(
+                <div className={style.NaoLogado}>
+                    <h2>Você precisa fazer login para acessar essa página</h2>
+                    <button onClick={this.login}>Login</button>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

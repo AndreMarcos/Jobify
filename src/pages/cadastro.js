@@ -165,7 +165,7 @@ class Cadastro extends React.Component {
                         <label htmlFor="sexo">Feminino</label>
                         <br/>
                         <Field type="number" placeholder="CPF*" name="cpf" size="11" value={this.state.cpf} onChange={this.handleChange} required />
-                        <Field type="text" placeholder="Telefone*" name="telefone" size="20" value={this.state.telefone} onChange={this.handleChange} required />
+                        <Field type="text" placeholder="Telefone (Whatsapp)*" name="telefone" size="20" value={this.state.telefone} onChange={this.handleChange} required />
                         <br/>
                         <Field type="number" name="cep" placeholder="CEP*" value={this.state.cep} onChange={(event) => this.onChangeCep(event)} required/>
                         <br/>
