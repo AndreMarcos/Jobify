@@ -20,11 +20,15 @@ class Feed extends React.Component {
             servicos: [],
             pagina_atual: 1,
             total_paginas: '',
-            descricao: ''
+            descricao: '',
+            token:''
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        await this.setState({
+            token: localStorage.getItem('token')
+        })
         this.getServicos()
     }
 
@@ -93,32 +97,41 @@ class Feed extends React.Component {
     }
 
     render(){
-        return(
-            <div className={style.servicos}>
-                <Head>
-                    <title>Jobify</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                <Menu/>
-                <div className="row mt-4 justify-content-center">
-                    <div className='col-8'> 
-                    <Tabs defaultActiveKey="ativos" id="uncontrolled-tab-example" className="mb-3">
-                        <Tab eventKey="ativos" title="Meus Serviços">
-                        <div className="row mt-4 justify-content-center">
-                            {this.renderServicosAtivos()}
+        if(this.state.token){
+            return(
+                <div className={style.servicos}>
+                    <Head>
+                        <title>Jobify</title>
+                        <link rel="icon" href="/favicon.ico" />
+                    </Head>
+                    <Menu/>
+                    <div className="row mt-4 justify-content-center">
+                        <div className='col-8'> 
+                        <Tabs defaultActiveKey="ativos" id="uncontrolled-tab-example" className="mb-3">
+                            <Tab eventKey="ativos" title="Meus Serviços">
+                            <div className="row mt-4 justify-content-center">
+                                {this.renderServicosAtivos()}
+                            </div>
+                            </Tab>
+                            <Tab eventKey="contratados" title="Contratados">
+                                Profile
+                            </Tab>
+                            <Tab eventKey="solicitacoes" title="Solicitações">
+                                Contact
+                            </Tab>
+                        </Tabs>
                         </div>
-                        </Tab>
-                        <Tab eventKey="contratados" title="Contratados">
-                            Profile
-                        </Tab>
-                        <Tab eventKey="solicitacoes" title="Solicitações">
-                            Contact
-                        </Tab>
-                    </Tabs>
                     </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return(
+                <div className={style.NaoLogado}>
+                    <h2>Você precisa fazer login para acessar essa página</h2>
+                    <button onClick={this.login}>Login</button>
+                </div>
+            )
+        } 
     }
 }
 
