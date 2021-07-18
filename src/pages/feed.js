@@ -6,16 +6,17 @@ import Router from 'next/router';
 import Menu from '../components/menu'
 import Card from 'react-bootstrap/Card'
 import { Formik, Field, Form } from 'formik';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ServiceModal from '../components/service_modal/service_modal.component'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import Popup from 'reactjs-popup';
+
+
 
 class Feed extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            nome: '',
             servicos: [],
             servico: {
                 user:{
@@ -28,7 +29,7 @@ class Feed extends React.Component {
             esconde_previous: false,
             esconde_next: false,
             descricao: '',
-            open: false,
+            openServiceModal: false,
             token:''
         }
     }
@@ -36,6 +37,9 @@ class Feed extends React.Component {
     async componentDidMount(){
         await this.setState({
             token: localStorage.getItem('token')
+        })
+        this.setState({
+            nome: localStorage.getItem('nome')
         })
         this.getServicos()
     }
@@ -86,13 +90,13 @@ class Feed extends React.Component {
         console.log(servico)
         this.setState({
             servico: servico,
-            open: true
+            openServiceModal: true
         })
     }
 
     closeModal = () =>{
         this.setState({
-            open:false
+            openServiceModal:false
         })
     }
 
@@ -166,23 +170,7 @@ class Feed extends React.Component {
                         <link rel="icon" href="/favicon.ico" />
                     </Head>
                     <Menu/>
-                    <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
-                        <div className={style.ModalServico}>
-                            <a className={style.close} onClick={this.closeModal}>&times;</a>
-                            <h3>{this.state.servico.title}</h3>
-                            <h4>Descrição do serviço:</h4>
-                            <p>{this.state.servico.description}</p>
-                            <h4 className='mt-4'>Informações do Autor:</h4>
-                            <p>Nome: {this.state.servico.user.name.firstName} {this.state.servico.user.name.lastName} <br></br>
-                            Cidade: {this.state.servico.user.address.city}<br></br>
-                            Contato: <a href={"http://api.whatsapp.com/send?1=pt_BR&phone=+55" + this.state.servico.user.phone} target="_blank"><FontAwesomeIcon icon={faWhatsapp} size='1x'/></a></p>
-                            <div className="row justify-content-end">
-                                <div className='col-2'>
-                                <button className={style.Botao} >Contratar</button>
-                                </div>
-                            </div>
-                        </div> 
-                    </Popup>
+                    <ServiceModal service={this.state.servico} open={this.state.openServiceModal}/>
                     <div className="row mt-4 justify-content-center">
                         <div className='col-8'> 
                             <Card>
@@ -224,18 +212,18 @@ class Feed extends React.Component {
                             </Card.Body>
                         </Card>
                     </div>
-                    <div className="row mt-4 justify-content-center">
-                        {this.renderServicos()}
-                        <div className={style.botaotabela}>
-                            <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
-                            <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
-                            <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
-                        </div>
+                </div>
+                <div className="row mt-4 justify-content-center">
+                    {this.renderServicos()}
+                    <div className={style.botaotabela}>
+                        <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
+                        <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
+                        <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
                     </div>
                 </div>
             </div>
-            )
-        }else{
+        )
+        } else {
             return(
                 <div className={style.NaoLogado}>
                     <h2>Você precisa fazer login para acessar essa página</h2>
