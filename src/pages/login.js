@@ -19,7 +19,7 @@ class Login extends React.Component {
         .then(res => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('nome', res.data.firstName);
-            Router.push('./componente');
+            Router.push('./feed');
         })
         .catch(err => {
             alert(err);
@@ -31,11 +31,15 @@ class Login extends React.Component {
         Router.push('./cadastro')
     }
 
+    esqueceuasenha(){
+        alert("Que pena")
+    }
+
     render(){
         return(
             <div className={style.Login}>
                 <Head>
-                    <title>Login</title>
+                    <title>Jobify</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderLogin}>
@@ -53,7 +57,7 @@ class Login extends React.Component {
                         <br />
                         <Field type="password" id="senhalogin" placeholder="Senha" name="senhalogin" minLength="8" size="20" required />
                         <br />
-                        <button className={style.BotaoTexto} >Esqueceu a sua senha?</button>
+                        <button type="button" className={style.BotaoTexto} onClick={this.esqueceuasenha}>Esqueceu a sua senha?</button>
                         <br />
                         <p>Ainda não possui cadastro? <button className={style.BotaoTexto} onClick={this.cadastro}>Cadastrar</button></p>
                         <Field type="submit" className={style.BotaoLogin} value="Entrar" name="botaologin" />
