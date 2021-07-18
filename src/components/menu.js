@@ -44,11 +44,11 @@ class Menu extends React.Component {
                 </Head>
                 <div className='row'>
                     <Navbar expand="lg" className='p-2' className={style.HeaderComponent}>
-                        <Navbar.Brand href="#home" className='col-6'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
+                        <Navbar.Brand href="/feed" className='col-6'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav.Link href="#home" className='col-1 text-white'>Feed</Nav.Link>
-                            <Nav.Link href="#link" className='col-3 text-white'>Meus Serviços</Nav.Link>
+                            <Nav.Link href="/feed" className='col-1 text-white'>Feed</Nav.Link>
+                            <Nav.Link href="/servicos" className='col-3 text-white'>Meus Serviços</Nav.Link>
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                             <Button variant="dark">Search</Button>
                         </Navbar.Collapse>

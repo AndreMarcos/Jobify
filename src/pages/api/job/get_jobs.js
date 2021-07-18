@@ -7,13 +7,22 @@ const getJobs = async (req, res) => {
 
         const curPage = parseInt(req.query.page) || 1
         const perPage = parseInt(req.query.limit) || 5
-
+        let jobs;
         try{
-            const jobs = await Job.find()
-            .populate(req.query.user ? 'user' : '')
-            .skip((curPage - 1) * perPage)
-            .limit(perPage)
-            .sort('-createdAt')
+            const id = req.user.id
+            if(req.query.user == "true"){
+                jobs = await Job.find({user: id})
+                .populate('user')
+                .skip((curPage - 1) * perPage)
+                .limit(perPage)
+                .sort('-createdAt')
+            }else{
+                jobs = await Job.find({status: 'open'})
+                .populate('user')
+                .skip((curPage - 1) * perPage)
+                .limit(perPage)
+                .sort('-createdAt')
+            }
 
             const totalJobs = await Job.find().countDocuments()
 
