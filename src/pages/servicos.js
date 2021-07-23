@@ -92,6 +92,53 @@ class Feed extends React.Component {
         })
     }
 
+    renderServicosContratados = () =>{
+        return this.state.servicos.map((servico) => {
+            return <div className='col-8 mt-2' key={servico._id}>
+                <Card>
+                    <Card.Body>
+                        <div className='row'>
+                            <div className='col-9'>
+                                <h5>{servico.title} - {servico.category}</h5>
+                            </div>
+                            <div className='col-3'>
+                            {servico.status}
+                            </div>
+                        </div>
+                        <p>{servico.description}</p>
+                        <p><b>Autor</b>: {servico.user.name.firstName} {servico.user.name.lastName}{" "}</p>
+                    </Card.Body>
+                </Card>
+            </div>
+        })
+    }
+
+    renderServicosSolicitados = () =>{
+        return this.state.servicos.map((servico) => {
+            return <div className='col-8 mt-2' key={servico._id}>
+                <Card>
+                    <Card.Body>
+                        <div className='row'>
+                            <div className='col-9'>
+                                <h5>{servico.title} - {servico.category}</h5>
+                            </div>
+                            <div className='col-3'>
+                            <select name="status" id="status" form="carform">
+                                <option value="Aguardando">Aguardando</option>
+                                <option value="Aprovado">Aprovado</option>
+                                <option value="Recusado">Recusado</option>
+                                <option value="Finalizado">Finalizado</option>
+                            </select>
+                            </div>
+                        </div>
+                        <p>{servico.description}</p>
+                        <p><b>Contratado por</b>: {servico.user.name.firstName} {servico.user.name.lastName}{" "}</p>
+                    </Card.Body>
+                </Card>
+            </div>
+        })
+    }
+
     alterarDados(){
         Router.push('./alterar_dados')
     }
@@ -114,10 +161,14 @@ class Feed extends React.Component {
                             </div>
                             </Tab>
                             <Tab eventKey="contratados" title="Contratados">
-                                Profile
+                            <div className="row mt-4 justify-content-center">
+                                {this.renderServicosContratados()}
+                            </div>
                             </Tab>
                             <Tab eventKey="solicitacoes" title="Solicitações">
-                                Contact
+                            <div className="row mt-4 justify-content-center">
+                                {this.renderServicosSolicitados()}
+                            </div>
                             </Tab>
                         </Tabs>
                         </div>
