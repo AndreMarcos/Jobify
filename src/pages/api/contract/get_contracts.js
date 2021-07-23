@@ -1,35 +1,37 @@
 import Job from '../../../models/job'
 import User from '../../../models/user'
+import Contract from '../../../models/contract'
 import authenticate from '../../../middleware/authenticate'
 
-const getJobs = async (req, res) => {
+const getContracts = async (req, res) => {
     if(req.method == 'GET'){
 
         const curPage = parseInt(req.query.page) || 1
         const perPage = parseInt(req.query.limit) || 5
-        let jobs, totalJobs;
+        let contracts=[];
+        let totalContracts = 0;
         try{
             const id = req.user.id
             if(req.query.user == "true"){
-                jobs = await Job.find({user: id})
+                contracts = await Contract.find({user: id})
                 .populate('user')
                 .skip((curPage - 1) * perPage)
                 .limit(perPage)
                 .sort('-createdAt')
-                totalJobs = await Job.find({user: id}).countDocuments()
+                totalContracts = await Contract.find({user: id}).countDocuments()
             }else{
-                jobs = await Job.find({status: 'open'})
-                .populate('user')
-                .skip((curPage - 1) * perPage)
-                .limit(perPage)
-                .sort('-createdAt')
-                totalJobs = await Job.find({status: 'open'}).countDocuments()
+                const jobs = await Job.find({user: id})
+                jobs.map((job)=>{
+                    let aux = await Contract.find({jobId:job._id})
+                    contracts = [...contracts, ...aux]
+                    totalContracts += await Contract.find({jobId:job._id}).countDocuments()
+                })
             }
 
             return res.status(200).json({
                 curPage: curPage,
-                maxPage: Math.ceil(totalJobs / perPage),
-                jobs: jobs
+                maxPage: Math.ceil(totalContracts / perPage),
+                contracts : contracts
             })
         }catch (error) {
             return res.status(400).send(error)
@@ -39,4 +41,4 @@ const getJobs = async (req, res) => {
     }
 }
 
-export default authenticate(getJobs, 'GET')
+export default authenticate(getContracts, 'GET')

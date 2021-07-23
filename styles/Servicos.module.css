@@ -1,3 +1,7 @@
+.servicos{
+    overflow-x: hidden;
+}
+
 .servicos input, .servicos textarea {
     width: 100%;
 }
