@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import styles from "./service_modal.module.scss";
+import Axios from "axios";
 
 const ServiceModal = (props) => {
   const [open, setOpen] = useState(false);
@@ -19,6 +20,29 @@ const ServiceModal = (props) => {
   }, [props]);
 
   let closeModal = () => setOpen(false);
+
+  let contratarServico = () => {
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    };
+    const data = {
+      jobId: service._id,
+      jobTitle: service.title,
+      jobDescription: service.description,
+      jobCategory: service.category
+    }
+    console.log(data)
+    Axios.post('./api/contract/create_contract', data, config)
+    .then(res=>{
+      alert("Serviço solicitado com sucesso!")
+    })
+    .catch(err=>{
+      alert(err)
+    })
+  }
 
   return (
     <Popup open={open} closeOnDocumentClick onClose={closeModal}>
@@ -48,7 +72,7 @@ const ServiceModal = (props) => {
         </p>
         <div className="row justify-content-center">
 
-            <button className={styles.hireButton}>Contratar</button>
+            <button className={styles.hireButton} onClick={contratarServico}>Contratar</button>
 
         </div>
       </div>

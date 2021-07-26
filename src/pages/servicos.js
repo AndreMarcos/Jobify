@@ -12,14 +12,27 @@ import Switch from "react-switch";
 import { Formik, Field, Form } from 'formik';
 
 
-class Feed extends React.Component {
+class Servicos extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
             servicos: [],
+            servicoscontratados: [],
+            solicitacoesservicos: [],
+            job: {},
             pagina_atual: 1,
             total_paginas: '',
+            esconde_previous: false,
+            esconde_next: false,
+            pagina_atual1: 1,
+            total_paginas1: '',
+            esconde_previous1: false,
+            esconde_next1: false,
+            pagina_atual2: 1,
+            total_paginas2: '',
+            esconde_previous2: false,
+            esconde_next2: false,
             descricao: '',
             token:''
         }
@@ -30,6 +43,8 @@ class Feed extends React.Component {
             token: localStorage.getItem('token')
         })
         this.getServicos()
+        this.getServicosContratados()
+        this.getSolicitacoesServicos()
     }
 
     getServicos = () =>{
@@ -46,6 +61,48 @@ class Feed extends React.Component {
                 servicos: res.data.jobs,
                 total_paginas: res.data.maxPage,
                 pagina_atual: res.data.curPage
+            })
+        })
+        .catch(err =>{
+            alert(err)
+        })
+    }
+
+    getServicosContratados = () =>{
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        };
+        let pagina_atual = this.state.pagina_atual1
+        Axios.get('./api/contract/get_contracts?page='+pagina_atual+'&limit=5&user=true', config)
+        .then(res =>{
+            this.setState({
+                servicoscontratados: res.data.contracts,
+                total_paginas1: res.data.maxPage,
+                pagina_atual1: res.data.curPage
+            })
+        })
+        .catch(err =>{
+            alert(err)
+        })
+    }
+
+    getSolicitacoesServicos = () =>{
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        };
+        let pagina_atual = this.state.pagina_atual2
+        Axios.get('./api/contract/get_contracts?page='+pagina_atual+'&limit=5&user=false', config)
+        .then(res =>{
+            this.setState({
+                solicitacoesservicos: res.data.contracts,
+                total_paginas2: res.data.maxPage,
+                pagina_atual2: res.data.curPage
             })
         })
         .catch(err =>{
@@ -93,20 +150,19 @@ class Feed extends React.Component {
     }
 
     renderServicosContratados = () =>{
-        return this.state.servicos.map((servico) => {
+        return this.state.servicoscontratados.map((servico) => {        
             return <div className='col-8 mt-2' key={servico._id}>
                 <Card>
                     <Card.Body>
                         <div className='row'>
                             <div className='col-9'>
-                                <h5>{servico.title} - {servico.category}</h5>
+                                <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
                             </div>
                             <div className='col-3'>
                             {servico.status}
                             </div>
                         </div>
-                        <p>{servico.description}</p>
-                        <p><b>Autor</b>: {servico.user.name.firstName} {servico.user.name.lastName}{" "}</p>
+                        <p>{servico.jobDescription}</p>
                     </Card.Body>
                 </Card>
             </div>
@@ -186,4 +242,4 @@ class Feed extends React.Component {
     }
 }
 
-export default Feed;
+export default Servicos;

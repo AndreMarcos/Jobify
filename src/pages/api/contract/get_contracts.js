@@ -21,17 +21,17 @@ const getContracts = async (req, res) => {
                 totalContracts = await Contract.find({user: id}).countDocuments()
             }else{
                 const jobs = await Job.find({user: id})
-                jobs.map((job)=>{
+                jobs.map(async (job)=>{
                     let aux = await Contract.find({jobId:job._id})
                     contracts = [...contracts, ...aux]
                     totalContracts += await Contract.find({jobId:job._id}).countDocuments()
                 })
             }
-
+            
             return res.status(200).json({
                 curPage: curPage,
                 maxPage: Math.ceil(totalContracts / perPage),
-                contracts : contracts
+                contracts : contracts,
             })
         }catch (error) {
             return res.status(400).send(error)

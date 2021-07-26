@@ -87,7 +87,6 @@ class Feed extends React.Component {
     }
 
     mostrarServico = (servico) =>{
-        console.log(servico)
         this.setState({
             servico: servico,
             openServiceModal: true
@@ -112,7 +111,6 @@ class Feed extends React.Component {
             description: this.state.descricao,
             category: e.categoria,
         }
-        console.log(data)
         Axios.post('./api/job/create_job', data, config)
         .then(res =>{
             alert("Solicitação enviada com sucesso!")

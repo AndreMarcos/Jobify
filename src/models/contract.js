@@ -2,15 +2,28 @@ const mongoose = require('../../utils/infrastructure/database/mongoose')
 
 const ContractSchema = new mongoose.Schema({
 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    jobId: {
+        type:String,
         required:true
     },
 
-    job: {
+    jobTitle: {
+        type:String,
+        required:true
+    },
+
+    jobDescription: {
+        type:String,
+        required:true
+    },
+
+    jobCategory: {
+        type:String,
+    },    
+
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job',
+        ref: 'User',
         required:true
     },
 
