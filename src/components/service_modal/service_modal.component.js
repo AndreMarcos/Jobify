@@ -34,9 +34,8 @@ const ServiceModal = (props) => {
       jobDescription: service.description,
       jobCategory: service.category,
       jobUser: service.user._id,
-      jobUserName: service.user.name
+      jobUserName: service.user.name.firstName + ' ' + service.user.name.lastName
     }
-    console.log(data)
     Axios.post('./api/contract/create_contract', data, config)
     .then(res=>{
       alert("Serviço solicitado com sucesso!")

@@ -164,7 +164,7 @@ class Servicos extends React.Component {
                             </div>
                         </div>
                         <p>{servico.jobDescription}</p>
-                        {/* <p><b>Autor</b>: {servico.jobUserName.name.firstName} {servico.jobUserName.name.lastName}{" "}</p> */}
+                        <p><b>Autor</b>: {servico.jobUserName}</p>
                     </Card.Body>
                 </Card>
             </div>
