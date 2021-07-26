@@ -32,7 +32,9 @@ const ServiceModal = (props) => {
       jobId: service._id,
       jobTitle: service.title,
       jobDescription: service.description,
-      jobCategory: service.category
+      jobCategory: service.category,
+      jobUser: service.user._id,
+      jobUserName: service.user.name
     }
     console.log(data)
     Axios.post('./api/contract/create_contract', data, config)

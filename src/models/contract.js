@@ -19,7 +19,23 @@ const ContractSchema = new mongoose.Schema({
 
     jobCategory: {
         type:String,
-    },    
+    },   
+    
+    jobUser: {
+        type:String,
+        required:true
+    },
+
+    jobUserName: {
+        firstName: {
+            type: String,
+            required: true
+        },
+        lastName: {
+            type: String,
+            required: true
+        }
+    },
 
     user: {
         type: mongoose.Schema.Types.ObjectId,

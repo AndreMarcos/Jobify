@@ -150,7 +150,8 @@ class Servicos extends React.Component {
     }
 
     renderServicosContratados = () =>{
-        return this.state.servicoscontratados.map((servico) => {        
+        return this.state.servicoscontratados.map((servico) => {       
+            console.log(servico) 
             return <div className='col-8 mt-2' key={servico._id}>
                 <Card>
                     <Card.Body>
@@ -163,6 +164,7 @@ class Servicos extends React.Component {
                             </div>
                         </div>
                         <p>{servico.jobDescription}</p>
+                        {/* <p><b>Autor</b>: {servico.jobUserName.name.firstName} {servico.jobUserName.name.lastName}{" "}</p> */}
                     </Card.Body>
                 </Card>
             </div>
@@ -170,16 +172,16 @@ class Servicos extends React.Component {
     }
 
     renderServicosSolicitados = () =>{
-        return this.state.servicos.map((servico) => {
+        return this.state.solicitacoesservicos.map((servico) => {
             return <div className='col-8 mt-2' key={servico._id}>
                 <Card>
                     <Card.Body>
                         <div className='row'>
                             <div className='col-9'>
-                                <h5>{servico.title} - {servico.category}</h5>
+                                <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
                             </div>
                             <div className='col-3'>
-                            <select name="status" id="status" form="carform">
+                            <select name="status" id="status" form="carform" value={servico.status}>
                                 <option value="Aguardando">Aguardando</option>
                                 <option value="Aprovado">Aprovado</option>
                                 <option value="Recusado">Recusado</option>
