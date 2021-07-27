@@ -9,3 +9,42 @@
 .NaoLogado{
     text-align: center;
 }
+
+.Esconde{
+    visibility: hidden;
+}
+
+.BotaoSeta{
+    margin-left: 2%;
+    margin-right: 2%;
+    cursor: pointer;
+    background-color: rgb(253, 94, 0);
+    border: 0.5px solid black;
+    border-radius: 0.3rem;
+    color:white;
+}
+
+.BotaoSeta:hover{
+    color: lightgray;
+}
+
+.botaotabela{
+    display: inline-flex;
+    align-content: center;
+    flex-direction: row;
+    margin-top: 2%;
+    margin-left: 30%;
+    width:50%;
+    margin-bottom: 5%;
+}
+
+.botaotabela h5{
+    text-align: center;
+    color: rgb(1, 37, 73);
+    font-size: 0.9vw;
+    margin-top: 0;
+}
+
+.botaotabela a{
+    font-size: 1vw;
+}

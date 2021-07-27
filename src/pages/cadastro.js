@@ -128,7 +128,7 @@ class Cadastro extends React.Component {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderCadastro}>
-                    <a onClick={this.inicio}><h3 className={style.TituloSite}>jobify</h3></a>   
+                    <a onClick={this.inicio}><h3 className={style.TituloSite}>Jobify</h3></a>   
                 </div>
                 <h2>Cadastro</h2>
                 <Formik

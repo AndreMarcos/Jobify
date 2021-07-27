@@ -9,8 +9,6 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Button from 'react-bootstrap/Button'
 import Switch from "react-switch";
-import { Formik, Field, Form } from 'formik';
-
 
 class Servicos extends React.Component {
 
@@ -20,7 +18,6 @@ class Servicos extends React.Component {
             servicos: [],
             servicoscontratados: [],
             solicitacoesservicos: [],
-            job: {},
             pagina_atual: 1,
             total_paginas: '',
             esconde_previous: false,
@@ -62,6 +59,7 @@ class Servicos extends React.Component {
                 total_paginas: res.data.maxPage,
                 pagina_atual: res.data.curPage
             })
+            this.personalizaBotao()
         })
         .catch(err =>{
             alert(err)
@@ -83,6 +81,7 @@ class Servicos extends React.Component {
                 total_paginas1: res.data.maxPage,
                 pagina_atual1: res.data.curPage
             })
+            this.personalizaBotao()
         })
         .catch(err =>{
             alert(err)
@@ -104,6 +103,7 @@ class Servicos extends React.Component {
                 total_paginas2: res.data.maxPage,
                 pagina_atual2: res.data.curPage
             })
+            this.personalizaBotao()
         })
         .catch(err =>{
             alert(err)
@@ -123,6 +123,26 @@ class Servicos extends React.Component {
         Axios.put('./api/job/switch_job_status', data, config)
         .then(res => {
             this.getServicos();
+        })
+        .catch(err => {
+            alert(err)
+        })
+    }
+
+    handleChangeStatus(id) {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        };
+        const data = {
+            contractId: id,
+            contractStatus: event.target.value
+        }
+        Axios.put('./api/contract/change_contract_status', data, config)
+        .then(res => {
+            this.getSolicitacoesServicos();
         })
         .catch(err => {
             alert(err)
@@ -151,7 +171,6 @@ class Servicos extends React.Component {
 
     renderServicosContratados = () =>{
         return this.state.servicoscontratados.map((servico) => {       
-            console.log(servico) 
             return <div className='col-8 mt-2' key={servico._id}>
                 <Card>
                     <Card.Body>
@@ -181,7 +200,7 @@ class Servicos extends React.Component {
                                 <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
                             </div>
                             <div className='col-3'>
-                            <select name="status" id="status" form="carform" value={servico.status}>
+                            <select name="status" id="status" form="carform" value={servico.status} onChange={() => this.handleChangeStatus(servico._id)}>
                                 <option value="Aguardando">Aguardando</option>
                                 <option value="Aprovado">Aprovado</option>
                                 <option value="Recusado">Recusado</option>
@@ -195,6 +214,88 @@ class Servicos extends React.Component {
                 </Card>
             </div>
         })
+    }
+
+    personalizaBotao = () =>{
+        if(this.state.pagina_atual === 1){
+            this.setState({esconde_previous : true});
+        }else{
+            this.setState({esconde_previous : false});
+        }
+
+        if(this.state.pagina_atual === this.state.total_paginas || this.state.total_paginas === 0){
+            this.setState({esconde_next : true});
+        }else{
+            this.setState({esconde_next : false});
+        }
+
+        if(this.state.pagina_atual1 === 1){
+            this.setState({esconde_previous1 : true});
+        }else{
+            this.setState({esconde_previous1 : false});
+        }
+
+        if(this.state.pagina_atual1 === this.state.total_paginas1 || this.state.total_paginas1 === 0){
+            this.setState({esconde_next1 : true});
+        }else{
+            this.setState({esconde_next1 : false});
+        }
+
+        if(this.state.pagina_atual2 === 1){
+            this.setState({esconde_previous2 : true});
+        }else{
+            this.setState({esconde_previous2 : false});
+        }
+
+        if(this.state.pagina_atual2 === this.state.total_paginas2 || this.state.total_paginas2 === 0){
+            this.setState({esconde_next2 : true});
+        }else{
+            this.setState({esconde_next2 : false});
+        }
+    }
+
+    voltaPagina = (num) =>{
+        if(num==1){
+            if(this.state.pagina_atual !== 1){
+                this.setState({
+                    pagina_atual : this.state.pagina_atual - 1
+                },() => this.getServicos());
+            }
+        }else if(num==2){
+            if(this.state.pagina_atual1 !== 1){
+                this.setState({
+                    pagina_atual1 : this.state.pagina_atual1 - 1
+                },() => this.getServicosContratados());
+            }
+        }else if(num==3){
+            if(this.state.pagina_atual2 !== 1){
+                this.setState({
+                    pagina_atual2 : this.state.pagina_atual2 - 1
+                },() => this.getSolicitacoesServicos());
+            }
+        }
+    }
+
+    proximaPagina = (num) =>{
+        if(num==1){
+            if(this.state.pagina_atual < this.state.total_paginas){
+                this.setState({
+                    pagina_atual : this.state.pagina_atual + 1
+                },() => this.getServicos());
+            }
+        }else if(num==2){
+            if(this.state.pagina_atual1 < this.state.total_paginas1){
+                this.setState({
+                    pagina_atual1 : this.state.pagina_atual1 + 1
+                },() => this.getServicosContratados());
+            }
+        }else if(num==3){
+            if(this.state.pagina_atual2 < this.state.total_paginas2){
+                this.setState({
+                    pagina_atual2 : this.state.pagina_atual2 + 1
+                },() => this.getSolicitacoesServicos());
+            }
+        } 
     }
 
     alterarDados(){
@@ -216,16 +317,31 @@ class Servicos extends React.Component {
                             <Tab eventKey="ativos" title="Meus Serviços">
                             <div className="row mt-4 justify-content-center">
                                 {this.renderServicosAtivos()}
+                                <div className={style.botaotabela}>
+                                    <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={() => this.voltaPagina(1)}>Anterior</button>
+                                    <h5 className={(this.state.total_paginas == 0 ? style.Esconde: '')}>Página {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
+                                    <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={() => this.proximaPagina(1)}>Próxima</button>
+                                </div>
                             </div>
                             </Tab>
                             <Tab eventKey="contratados" title="Contratados">
                             <div className="row mt-4 justify-content-center">
                                 {this.renderServicosContratados()}
+                                <div className={style.botaotabela}>
+                                    <button className={(this.state.esconde_previous1 ? style.Esconde: style.BotaoSeta)} onClick={() => this.voltaPagina(2)}>Anterior</button>
+                                    <h5 className={(this.state.total_paginas1 == 0 ? style.Esconde: '')}>Página {this.state.pagina_atual1} de {this.state.total_paginas1}</h5>   
+                                    <button className={(this.state.esconde_next1 ? style.Esconde: style.BotaoSeta)} onClick={() => this.proximaPagina(2)}>Próxima</button>
+                                </div>
                             </div>
                             </Tab>
                             <Tab eventKey="solicitacoes" title="Solicitações">
                             <div className="row mt-4 justify-content-center">
                                 {this.renderServicosSolicitados()}
+                                <div className={style.botaotabela}>
+                                    <button className={(this.state.esconde_previous2 ? style.Esconde: style.BotaoSeta)} onClick={() => this.voltaPagina(3)}>Anterior</button>
+                                    <h5 className={(this.state.total_paginas2 == 0 ? style.Esconde: '')}>Página {this.state.pagina_atual2} de {this.state.total_paginas2}</h5>   
+                                    <button className={(this.state.esconde_next2 ? style.Esconde: style.BotaoSeta)} onClick={() => this.proximaPagina(3)}>Próxima</button>
+                                </div>
                             </div>
                             </Tab>
                         </Tabs>

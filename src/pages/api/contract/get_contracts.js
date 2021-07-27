@@ -25,9 +25,9 @@ const getContracts = async (req, res) => {
                 .skip((curPage - 1) * perPage)
                 .limit(perPage)
                 .sort('-createdAt')
-                totalContracts = await Contract.find({user: id}).countDocuments()
+                totalContracts = await Contract.find({jobUser: id}).countDocuments()
             }
-            
+    
             return res.status(200).json({
                 curPage: curPage,
                 maxPage: Math.ceil(totalContracts / perPage),

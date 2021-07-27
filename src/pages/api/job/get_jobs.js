@@ -18,12 +18,12 @@ const getJobs = async (req, res) => {
                 .sort('-createdAt')
                 totalJobs = await Job.find({user: id}).countDocuments()
             }else{
-                jobs = await Job.find({status: 'open'})
+                jobs = await Job.find({status: 'open', title: { $regex: new RegExp(req.query.busca), $options: 'i' }})
                 .populate('user')
                 .skip((curPage - 1) * perPage)
                 .limit(perPage)
                 .sort('-createdAt')
-                totalJobs = await Job.find({status: 'open'}).countDocuments()
+                totalJobs = await Job.find({status: 'open', title: { $regex: new RegExp(req.query.busca), $options: 'i' }}).countDocuments()
             }
 
             return res.status(200).json({

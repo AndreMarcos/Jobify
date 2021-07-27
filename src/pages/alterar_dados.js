@@ -144,6 +144,10 @@ class AlterarDados extends React.Component {
         })
     }
 
+    inicio(){
+        Router.push('./')
+    }
+
     render(){
         return(
             <div className={style.Cadastro}>
@@ -152,7 +156,7 @@ class AlterarDados extends React.Component {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderCadastro}>
-                    <h3>jobify</h3>
+                    <h3 onClick={this.inicio}>Jobify</h3>
                 </div>
                 <h2>Alterar Dados</h2>
                 <Formik
