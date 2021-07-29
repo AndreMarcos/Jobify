@@ -190,12 +190,7 @@ class Feed extends React.Component {
                                             </div>
                                             <div className='row mt-2'>
                                                 <div className='col'>
-                                                    <textarea name="descricao" placeholder="Descricao" value={this.state.descricao} onChange={this.handleChange}/>
-                                                </div>
-                                            </div>
-                                            <div className='row mt-2'>
-                                                <div className='col'>
-                                                    <textarea name="descricao" placeholder="Descricao e Valor" value={this.state.descricao} onChange={this.handleChange}/>
+                                                    <textarea name="descricao" placeholder="Descrição e Valor" columns="3" value={this.state.descricao} onChange={this.handleChange}/>
                                                 </div>
                                             </div>
                                             <div className='row justify-content-end'>
