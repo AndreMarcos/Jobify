@@ -19,13 +19,13 @@
     margin-right: 2%;
     cursor: pointer;
     background-color: rgb(253, 94, 0);
-    border: 0.5px solid black;
+    border: none;
     border-radius: 0.3rem;
     color:white;
 }
 
 .BotaoSeta:hover{
-    color: lightgray;
+    background-color: rgba(253, 94, 0, 0.9);
 }
 
 .botaotabela{

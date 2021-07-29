@@ -2,8 +2,13 @@
     overflow-x: hidden;
 }
 
-.feed input, .feed textarea {
+.feed input {
     width: 100%;
+}
+
+.feed textarea{
+    width: 100%;
+    resize: none;
 }
 
 .Esconde{
@@ -15,13 +20,13 @@
     margin-right: 2%;
     cursor: pointer;
     background-color: rgb(253, 94, 0);
-    border: 0.5px solid black;
+    border: none;
     border-radius: 0.3rem;
     color:white;
 }
 
 .BotaoSeta:hover{
-    color: lightgray;
+    background-color: rgba(253, 94, 0, 0.9);
 }
 
 .botaotabela{
@@ -117,6 +122,10 @@
     border-radius: 0.3rem;
     padding: 1%;
     margin-bottom: 4%;
+}
+
+.Botao:hover{
+    background-color: rgba(253, 94, 0, 0.9);
 }
 
 .icon {
