@@ -213,7 +213,7 @@ class Feed extends React.Component {
                     {this.renderServicos()}
                     <div className={style.botaotabela}>
                         <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
-                        <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
+                        <h5>Página {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
                         <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
                     </div>
                 </div>
