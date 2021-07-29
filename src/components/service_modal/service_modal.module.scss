@@ -2,7 +2,7 @@
 
 .ModalServico{
     width: 55vw;
-    height: 50vh;
+    max-height: 55vh;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
     background-color: white;
     color:rgb(1, 37, 73);
@@ -12,16 +12,21 @@
         text-transform: capitalize;
         margin-bottom: 5%;
         margin-top: 0;
-        font-size: 1.4vw;
+        font-size: 1.6vw;
         text-align: center;
+        color: #343a40;
     }
 
     h4 {
-        font-size: 1.2vw;
+        font-size: 1.4vw;
+        margin: 0;
+        padding: 0;
+        color: #343a40;
+        font-weight: bold;
     }
 
     p {
-        font-size: 1vw;
+        font-size: 1.2vw;
     }
 
     button{
@@ -69,8 +74,15 @@
         margin-bottom: 4%;
     }
 
+    .hireButton:hover{
+        background-color: rgba(253, 94, 0, 0.9) ;
+    }
+
     .faIcon {
-        font-size: 2vw;
-        color: #000;
+        font-size: 2.4vw;
+        padding: 0.3vw;
+        margin-left: 1.2vw;
+        margin-right: 0.6vw;
+        color: #343a40;
     }
 }

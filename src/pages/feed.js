@@ -9,8 +9,6 @@ import { Formik, Field, Form } from 'formik';
 import ServiceModal from '../components/service_modal/service_modal.component'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-
-
 class Feed extends React.Component {
 
     constructor(props){
@@ -36,10 +34,8 @@ class Feed extends React.Component {
 
     async componentDidMount(){
         await this.setState({
-            token: localStorage.getItem('token')
-        })
-        this.setState({
-            nome: localStorage.getItem('nome')
+            token: localStorage.getItem('token'),
+            nome: localStorage.getItem('nome'),
         })
         this.getServicos()
     }
@@ -52,7 +48,8 @@ class Feed extends React.Component {
             }
         };
         let pagina_atual = this.state.pagina_atual
-        Axios.get('./api/job/get_jobs?page='+pagina_atual+'&limit=5&user=false', config)
+        let busca = localStorage.getItem('busca')
+        Axios.get('./api/job/get_jobs?page='+pagina_atual+'&limit=5&user=false&busca='+busca, config)
         .then(res =>{
             this.setState({
                 servicos: res.data.jobs,
@@ -60,6 +57,7 @@ class Feed extends React.Component {
                 pagina_atual: res.data.curPage
             })
             this.personalizaBotao()
+            localStorage.setItem('busca', '')
         })
         .catch(err =>{
             alert(err)
@@ -87,7 +85,6 @@ class Feed extends React.Component {
     }
 
     mostrarServico = (servico) =>{
-        console.log(servico)
         this.setState({
             servico: servico,
             openServiceModal: true
@@ -112,7 +109,6 @@ class Feed extends React.Component {
             description: this.state.descricao,
             category: e.categoria,
         }
-        console.log(data)
         Axios.post('./api/job/create_job', data, config)
         .then(res =>{
             alert("Solicitação enviada com sucesso!")
@@ -217,7 +213,7 @@ class Feed extends React.Component {
                     {this.renderServicos()}
                     <div className={style.botaotabela}>
                         <button className={(this.state.esconde_previous ? style.Esconde: style.BotaoSeta)} onClick={this.voltaPagina}>Anterior</button>
-                        <h5>Páginas {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
+                        <h5>Página {this.state.pagina_atual} de {this.state.total_paginas}</h5>   
                         <button className={(this.state.esconde_next ? style.Esconde: style.BotaoSeta)} onClick={this.proximaPagina}>Próxima</button>
                     </div>
                 </div>

@@ -45,13 +45,7 @@ const UserSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true
-    },
-
-    hiredJobs: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Job'
-    }]
-
+    }
 })
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)

@@ -3,6 +3,8 @@ import Popup from "reactjs-popup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import styles from "./service_modal.module.scss";
+import { faTools, faUser } from "@fortawesome/free-solid-svg-icons";
+import Axios from "axios";
 
 const ServiceModal = (props) => {
   const [open, setOpen] = useState(false);
@@ -20,6 +22,30 @@ const ServiceModal = (props) => {
 
   let closeModal = () => setOpen(false);
 
+  let contratarServico = () => {
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    };
+    const data = {
+      jobId: service._id,
+      jobTitle: service.title,
+      jobDescription: service.description,
+      jobCategory: service.category,
+      jobUser: service.user._id,
+      jobUserName: service.user.name.firstName + ' ' + service.user.name.lastName
+    }
+    Axios.post('./api/contract/create_contract', data, config)
+    .then(res=>{
+      alert("Serviço solicitado com sucesso!")
+    })
+    .catch(err=>{
+      alert(err)
+    })
+  }
+
   return (
     <Popup open={open} closeOnDocumentClick onClose={closeModal}>
       <div className={styles.ModalServico}>
@@ -27,9 +53,19 @@ const ServiceModal = (props) => {
           &times;
         </a>
         <h3>{service?.title}</h3>
-        <h4>Descrição do serviço:</h4>
+
+        <div className="row align-items-center">
+          <FontAwesomeIcon className={styles.faIcon} icon={faTools} />
+          <h4>Descrição</h4>
+        </div>
+
         <p>{service?.description}</p>
-        <h4 className="mt-4">Informações do Autor:</h4>
+        
+        <div className="row align-items-center">
+          <FontAwesomeIcon className={styles.faIcon} icon={faUser} />
+          <h4>Informações do Autor</h4>
+        </div>
+
         <p>
           <b>Nome</b>: {service?.user.name.firstName} {service?.user.name.lastName}{" "}
           <br></br>
@@ -48,7 +84,7 @@ const ServiceModal = (props) => {
         </p>
         <div className="row justify-content-center">
 
-            <button className={styles.hireButton}>Contratar</button>
+            <button className={styles.hireButton} onClick={contratarServico}>Contratar</button>
 
         </div>
       </div>
