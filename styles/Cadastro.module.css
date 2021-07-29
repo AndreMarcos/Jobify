@@ -18,6 +18,7 @@
     font-family: sans-serif;
     padding: 1%;
     font-size: 1.8vw;
+    cursor: pointer;
 }
 
 .HeaderCadastro a{
