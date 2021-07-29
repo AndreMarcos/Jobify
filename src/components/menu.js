@@ -16,7 +16,8 @@ class Menu extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            nome: ''
+            nome: '',
+            busca: ''
         }
     }
 
@@ -35,6 +36,18 @@ class Menu extends React.Component {
         Router.push('./login')
     }
 
+    handleChange = e =>{
+        this.setState({
+            busca : e.target.value
+        })
+    }
+
+    buscar = () =>{
+        localStorage.setItem('busca', this.state.busca)
+        location.reload()
+        Router.push('./feed')
+    }
+
     render(){
         return(
             <div className='container-fluid'>
@@ -47,10 +60,11 @@ class Menu extends React.Component {
                         <Navbar.Brand href="/feed" className='col-6'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav.Link href="/feed" className='col-1 text-white'>Feed</Nav.Link>
-                            <Nav.Link href="/servicos" className='col-3 text-white'>Meus Serviços</Nav.Link>
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                            <Button variant="dark">Search</Button>
+                            <Nav.Link href="/feed" className={style.MenuLink}>Feed</Nav.Link>
+                            <Nav.Link href="/servicos" className={style.MenuLink}>Meus Serviços</Nav.Link>
+                            <Nav.Link href="/alterar_dados" className={style.MenuLink}>Alterar Dados</Nav.Link>
+                            <FormControl type="text" className="mr-sm-2" value={this.state.busca} onChange={this.handleChange}/>
+                            <Button variant="dark" onClick={this.buscar}>Buscar</Button>
                         </Navbar.Collapse>
                         <Nav.Link onClick={this.sair} className='col-1 text-white'>Sair</Nav.Link>
                     </Navbar>

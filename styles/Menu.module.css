@@ -11,6 +11,12 @@
     color:white;
 }
 
+.MenuLink{
+    width: 45%;
+    text-align: center;
+    color: white;
+}
+
 .menu-spacer {
-    flex: 1 1 auto;
+    flex: 1 1 1 auto;
   }
