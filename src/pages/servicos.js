@@ -150,70 +150,83 @@ class Servicos extends React.Component {
     }
 
     renderServicosAtivos = () =>{
-        return this.state.servicos.map((servico) => {
-            return <div className='col-8 mt-2' key={servico._id}>
-                <Card>
-                    <Card.Body>
-                        <div className='row'>
-                            <div className='col-10'>
-                                <h5>{servico.title} - {servico.category}</h5>
+        if(this.state.servicos[0]){
+            return this.state.servicos.map((servico) => {
+                return <div className='col-8 mt-2' key={servico._id}>
+                    <Card>
+                        <Card.Body>
+                            <div className='row'>
+                                <div className='col-10'>
+                                    <h5>{servico.title} - {servico.category}</h5>
+                                </div>
+                                <div className='col-2'>
+                                <Switch onChange={() => this.handleChange(servico._id)} checked={servico.status === "open"} />
+                                </div>
                             </div>
-                            <div className='col-2'>
-                            <Switch onChange={() => this.handleChange(servico._id)} checked={servico.status === "open"} />
-                            </div>
-                        </div>
-                        <p>{servico.description}</p>
-                    </Card.Body>
-                </Card>
-            </div>
-        })
+                            <p>{servico.description}</p>
+                        </Card.Body>
+                    </Card>
+                </div>
+            })
+        }else{
+            return(<h4>Você não possui serviços criados</h4>)
+        }
     }
 
     renderServicosContratados = () =>{
-        return this.state.servicoscontratados.map((servico) => {       
-            return <div className='col-8 mt-2' key={servico._id}>
-                <Card>
-                    <Card.Body>
-                        <div className='row'>
-                            <div className='col-9'>
-                                <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
+        if(this.state.servicoscontratados[0]){
+            return this.state.servicoscontratados.map((servico) => {       
+                return <div className='col-8 mt-2' key={servico._id}>
+                    <Card>
+                        <Card.Body>
+                            <div className='row'>
+                                <div className='col-9'>
+                                    <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
+                                </div>
+                                <div className='col-3'>
+                                {servico.status}
+                                </div>
                             </div>
-                            <div className='col-3'>
-                            {servico.status}
-                            </div>
-                        </div>
-                        <p>{servico.jobDescription}</p>
-                        <p><b>Autor</b>: {servico.jobUserName}</p>
-                    </Card.Body>
-                </Card>
-            </div>
-        })
+                            <p>{servico.jobDescription}</p>
+                            <p><b>Autor</b>: {servico.jobUserName}</p>
+                        </Card.Body>
+                    </Card>
+                </div>
+            })
+        }else{
+            return(<h4>Você não possui serviços contratados</h4>)
+        }
+        
     }
 
     renderServicosSolicitados = () =>{
-        return this.state.solicitacoesservicos.map((servico) => {
-            return <div className='col-8 mt-2' key={servico._id}>
-                <Card>
-                    <Card.Body>
-                        <div className='row'>
-                            <div className='col-9'>
-                                <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
+        if(this.state.solicitacoesservicos[0]){
+            return this.state.solicitacoesservicos.map((servico) => {
+                return <div className='col-8 mt-2' key={servico._id}>
+                    <Card>
+                        <Card.Body>
+                            <div className='row'>
+                                <div className='col-9'>
+                                    <h5>{servico.jobTitle} - {servico.jobCategory}</h5>
+                                </div>
+                                <div className='col-3'>
+                                <select name="status" id="status" form="carform" value={servico.status} onChange={() => this.handleChangeStatus(servico._id)}>
+                                    <option value="Aguardando">Aguardando</option>
+                                    <option value="Aprovado">Aprovado</option>
+                                    <option value="Recusado">Recusado</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                                </div>
                             </div>
-                            <div className='col-3'>
-                            <select name="status" id="status" form="carform" value={servico.status} onChange={() => this.handleChangeStatus(servico._id)}>
-                                <option value="Aguardando">Aguardando</option>
-                                <option value="Aprovado">Aprovado</option>
-                                <option value="Recusado">Recusado</option>
-                                <option value="Finalizado">Finalizado</option>
-                            </select>
-                            </div>
-                        </div>
-                        <p>{servico.description}</p>
-                        <p><b>Contratado por</b>: {servico.user.name.firstName} {servico.user.name.lastName}{" "}</p>
-                    </Card.Body>
-                </Card>
-            </div>
-        })
+                            <p>{servico.description}</p>
+                            <p><b>Contratado por</b>: {servico.user.name.firstName} {servico.user.name.lastName}{" "}</p>
+                        </Card.Body>
+                    </Card>
+                </div>
+            })
+        }else{
+            return(<h4>Você não possui serviços solicitados</h4>)
+        }
     }
 
     personalizaBotao = () =>{
