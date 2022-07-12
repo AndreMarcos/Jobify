@@ -52,12 +52,12 @@ class Menu extends React.Component {
         return(
             <div className='container-fluid'>
                 <Head>
-                    <title>Jobify</title>
+                    <title>Job Insider</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className='row'>
                     <Navbar expand="lg" className='p-2' className={style.HeaderComponent}>
-                        <Navbar.Brand href="/feed" className='col-6'><span className={style.HeaderJobify}>Jobify</span> </Navbar.Brand>
+                        <Navbar.Brand href="/feed" className='col-6'><span className={style.HeaderJobify}>Job Insider</span> </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav.Link href="/feed" className={style.MenuLink}>Feed</Nav.Link>

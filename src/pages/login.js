@@ -39,11 +39,11 @@ class Login extends React.Component {
         return(
             <div className={style.Login}>
                 <Head>
-                    <title>Jobify</title>
+                    <title>Job Insider</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderLogin}>
-                    <h3>jobify</h3>
+                    <h3>Job Insider</h3>
                 </div>
                 <h2>Login</h2>
                 <Formik

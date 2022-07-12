@@ -320,7 +320,7 @@ class Servicos extends React.Component {
             return(
                 <div className={style.servicos}>
                     <Head>
-                        <title>Jobify</title>
+                        <title>Job Insider</title>
                         <link rel="icon" href="/favicon.ico" />
                     </Head>
                     <Menu/>

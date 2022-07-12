@@ -19,14 +19,14 @@
     margin-left: 2%;
     margin-right: 2%;
     cursor: pointer;
-    background-color: rgb(253, 94, 0);
+    background-color: rgb(22, 7, 241);
     border: none;
     border-radius: 0.3rem;
     color:white;
 }
 
 .BotaoSeta:hover{
-    background-color: rgba(253, 94, 0, 0.9);
+    background-color: rgba(0, 202, 253, 0.9);
 }
 
 .botaotabela{
@@ -113,7 +113,7 @@
 }
 
 .Botao{
-    background-color: rgb(253, 94, 0);
+    background-color: rgb(22, 7, 241);
     color:white;
     width:100%;
     font-size: 1vw;
@@ -125,7 +125,7 @@
 }
 
 .Botao:hover{
-    background-color: rgba(253, 94, 0, 0.9);
+    background-color: rgba(0, 202, 253, 0.9);
 }
 
 .icon {

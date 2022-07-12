@@ -8,7 +8,7 @@
 }
 
 .HeaderCadastro{
-    background-color: rgb(253, 94, 0);
+    background-color: rgb(22, 7, 241);
     color:white;
     text-align: center;
 }
@@ -39,12 +39,12 @@
 }
 
 .BotaoCadastro{
-    background-color: rgb(253, 94, 0);
+    background-color: rgb(22, 7, 241);
     color:white;
     width:20%;
     cursor: pointer;
 }
 
 .BotaoCadastro:hover{
-    background-color: rgba(253, 94, 0, 0.9);
+    background-color: rgba(0, 202, 253, 0.9);
 }

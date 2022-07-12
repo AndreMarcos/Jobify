@@ -90,7 +90,7 @@ class Componente extends React.Component {
         return(
             <div>
                 <Head>
-                    <title>Jobify</title>
+                    <title>Job Insider</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.Conteudo}>

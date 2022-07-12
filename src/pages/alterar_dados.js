@@ -152,11 +152,11 @@ class AlterarDados extends React.Component {
         return(
             <div className={style.Cadastro}>
                 <Head>
-                    <title>Jobify</title>
+                    <title>Job Insider</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <div className={style.HeaderCadastro}>
-                    <h3 onClick={this.inicio}>Jobify</h3>
+                    <h3 onClick={this.inicio}>Job Insider</h3>
                 </div>
                 <h2>Alterar Dados</h2>
                 <Formik
